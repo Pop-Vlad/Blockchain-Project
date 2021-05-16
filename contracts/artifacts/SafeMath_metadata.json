@@ -1,0 +1,38 @@
+{
+	"compiler": {
+		"version": "0.5.17+commit.d19bba13"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "Math operations with safety checks that throw on error. This contract is based on the source code at https://goo.gl/iyQsmU.",
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/SafeMath.sol": "SafeMath"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/SafeMath.sol": {
+			"keccak256": "0x65c26f40fc0d080b3966d5af1f2eb8a2ef90f0500afd02b0953d5b4917a6dbe0",
+			"urls": [
+				"bzz-raw://5da213b5ffb7592b5a5a8b9ee8f6f1f77613536848541206bc8f2b19e50e815a",
+				"dweb:/ipfs/QmauE1Gieu5eNwz3m3cFuzt9diAGMapNEQ6WfkFeAeKYA5"
+			]
+		}
+	},
+	"version": 1
+}
