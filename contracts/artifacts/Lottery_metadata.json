@@ -172,7 +172,13 @@
 				"constant": false,
 				"inputs": [],
 				"name": "boostPrize",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"payable": true,
 				"stateMutability": "payable",
 				"type": "function"
@@ -212,21 +218,6 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
-					}
-				],
-				"payable": false,
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"constant": false,
-				"inputs": [],
-				"name": "genTest",
-				"outputs": [
-					{
-						"internalType": "uint8[]",
-						"name": "",
-						"type": "uint8[]"
 					}
 				],
 				"payable": false,
@@ -470,7 +461,18 @@
 					}
 				],
 				"name": "tryTicket",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint8[]",
+						"name": "",
+						"type": "uint8[]"
+					}
+				],
 				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -485,7 +487,13 @@
 					}
 				],
 				"name": "updateFee",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
 				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -500,22 +508,28 @@
 					}
 				],
 				"name": "updateRetainedPrize",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
 				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"constant": false,
-				"inputs": [
+				"inputs": [],
+				"name": "withdrawEarnings",
+				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "_amount",
+						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "withdrawEarnings",
-				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -532,8 +546,26 @@
 				"balanceOf(address)": {
 					"details": "See `IERC20.balanceOf`."
 				},
+				"boostPrize()": {
+					"details": "Adds tokens to the `__totalSupply` after the price was paid. The payer won't recieve anything in exchange.    * Returns an integer indicating the number of tokens that were added to the _totalSupply."
+				},
+				"buyTickets(uint256)": {
+					"details": "Adds a token to the balance of the function caller if the price was paid and moves the surplus back to the sender if they paid too much."
+				},
 				"decreaseAllowance(address,uint256)": {
 					"details": "Atomically decreases the allowance granted to `spender` by the caller.      * This is an alternative to `approve` that can be used as a mitigation for problems described in `IERC20.approve`.      * Emits an `Approval` event indicating the updated allowance.      * Requirements:      * - `spender` cannot be the zero address. - `spender` must have allowance for the caller of at least `subtractedValue`."
+				},
+				"getExchangeFee()": {
+					"details": "Returns an integer value indicating the current `exchangeFee`(2% by default)."
+				},
+				"getPrize()": {
+					"details": "Returns an integer value indicating the prize pool in ETH(80% of the `_totalSupply` with 2% `exchangeFee` by default)."
+				},
+				"getRetainedPrize()": {
+					"details": "Returns an integer value indicating the current `retainPrize`(20% by default), which will be held for the next prize pool, after someone wins the current one."
+				},
+				"getTicketPrice()": {
+					"details": "Returns an integer value indicating the current `ticketPrice`(0.001 ETH by default)."
 				},
 				"increaseAllowance(address,uint256)": {
 					"details": "Atomically increases the allowance granted to `spender` by the caller.      * This is an alternative to `approve` that can be used as a mitigation for problems described in `IERC20.approve`.      * Emits an `Approval` event indicating the updated allowance.      * Requirements:      * - `spender` cannot be the zero address."
@@ -561,6 +593,18 @@
 					"params": {
 						"newOwner": "The address to transfer ownership to."
 					}
+				},
+				"tryTicket(uint8[])": {
+					"details": "Moves a token from the balance of the function caller and adds it to the `_totalSupply`.Checks if the `numbers` are the same as the 5 randomly generated numbers.    * Calls function `equal()` to check if the 2 sets of numbers are the same.    * Calls win() if the numbers are the same as the ones generated."
+				},
+				"updateFee(uint8)": {
+					"details": "Changes the current `exchangeFee` to the `newFee`.    * It can be called only by the owner."
+				},
+				"updateRetainedPrize(uint8)": {
+					"details": "Changes the current `retainPrize` to the `newRetainedPrize`.    * It can be called only by the owner and can't be greater than 30 and less than 10."
+				},
+				"withdrawEarnings()": {
+					"details": "Moves the earned amount of wei from the contract to the caller's account.    * Only the owner can withdraw and can't withdraw from the prize pool. Returns the amount transfered."
 				}
 			}
 		},
@@ -600,10 +644,10 @@
 			]
 		},
 		"contracts/Lottery.sol": {
-			"keccak256": "0x165cde40ffe2b6e972833c1e6f8a1ff82ce80e37b00dcc8ea49f4ddec06b8e16",
+			"keccak256": "0x509122f5e08e8b3191f9416e0fe5eabba6113b1c60d0f5cb0521c72db2900281",
 			"urls": [
-				"bzz-raw://4d6e35f6683b97bd213c437daf83bf51e3716b6166de1b6541730f846dfc24d5",
-				"dweb:/ipfs/QmNoMB3xYMQshaZRMUf8K9U91Yw2MtQUSaAhHnv1Favtim"
+				"bzz-raw://670eb3efafe5adf3b1fc130345631e21dee20f0f7201d3d5386b29aae3d857f6",
+				"dweb:/ipfs/QmZYiE27DHiefao165E8TyhZ5weT3RETifavGqvW6qwP3c"
 			]
 		},
 		"contracts/LotteryTokens.sol": {
